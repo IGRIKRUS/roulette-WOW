@@ -1,0 +1,35 @@
+<section class="content-header">
+    <h1> config parser votes <small><p class="text-success">{{ msg }}</p></small></h1>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header">{{ lang._('install:steps:parser') | raw }}</div>
+        <form id="config" class="form-horizontal" method="post" action="/install/parser">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="topName" class="col-sm-3 control-label">{{ lang._('formsInstall:inputTopSite') }}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="topName" class="form-control" id="topName" placeholder="mmotop">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="topUrl" class="col-sm-3 control-label">{{ lang._('formsInstall:inputTopFile') }}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="file" class="form-control" id="topUrl" placeholder="http:/top.com/10/asdfasdg2332fdf2ef/123.txt">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="vote" class="col-sm-3 control-label">{{ lang._('formsInstall:inputTopVp') }}</label>
+                <div class="col-sm-9">
+                    <input type="number" name="vote" class="form-control" id="vote" placeholder="1">
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary pull-left">{{ lang._('formsInstall:btnAdd') }}</button>
+            <button id="next" type="button" class="btn btn-primary pull-right" data-url="/install/admin/user">{{ lang._('formsInstall:btnNext') }}</button>
+        </div>
+         </form>
+    </div>
+</section>

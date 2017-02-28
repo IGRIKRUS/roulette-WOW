@@ -1,0 +1,26 @@
+{teg}
+
+define('INSTALL',false);
+define('ADMIN_ID','{admin_id}');
+define('APP_LANG','{lang}');
+
+return array(
+    'roulette'=>array(
+        {roulette}
+    ),
+    'wowdata'=>array(
+        {wowdata}
+    ),
+    'votedata'=>array(
+        'db'=>array(
+            {votedata_db}
+        ),
+        {votedata_vote}
+    ),
+    'soapConsole'=>array(
+        {soapConsole}
+    ),
+    'parser'=>array(
+           {parser}
+    )
+);

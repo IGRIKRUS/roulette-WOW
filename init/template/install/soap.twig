@@ -1,0 +1,38 @@
+<section class="content-header">
+    <h1> config SOAP </h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header">{{ lang._('install:steps:soap') | raw }}</div>
+        <form id="config" class="form-horizontal" method="post" action="/install/soap">
+        <div class="box-body">
+                <div class="form-group">
+                    <label for="host" class="col-sm-3 control-label">{{ lang._('formsInstall:inputHost') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="host" class="form-control" id="host" placeholder="127.0.0.1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="port" class="col-sm-3 control-label">{{ lang._('formsInstall:inputPort') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="port" class="form-control" id="port" placeholder="7878">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="user" class="col-sm-3 control-label">{{ lang._('formsInstall:inputGmName') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="user" class="form-control" id="user" placeholder="user">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass" class="col-sm-3 control-label">{{ lang._('formsInstall:inputGmPass') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="pass" class="form-control" id="pass" placeholder="1234">
+                    </div>
+                </div>
+
+        </div>
+        <div class="box-footer"><button type="submit" class="btn btn-primary pull-right">{{ lang._('formsInstall:btnSave') }}</button></div>
+        </form>
+    </div>
+</section>

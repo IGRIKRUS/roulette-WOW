@@ -1,0 +1,186 @@
+{% extends 'admin/layout.twig' %}
+
+{% block page %}
+    {% if type == 'edit' %}
+        <section class="content-header">
+            <h1>{{ lang._('admin:item:headEdit') }}</h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-home"></i> Admin</a></li>
+                <li class="active">{{ lang._('admin:item:headEdit') }}</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="box box-primary">
+        {% if macros != false and category != false and item != false%}
+                <form method="post" id="addItem" action="/admin/item/{{ item.id }}">
+                    <div class="box-body">
+                    <div class="form-group col-xs-12">
+                        <select name="macros" class="form-control">
+                            {% for macro in macros %}
+                                <option value="{{ macro.id }}" {% if item.id_macros == macro.id %} selected {% endif %}>{{ macro.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="macros">
+                        <div class="form-group col-xs-12">
+                            {% set mcr = item.macro_param|unserialize %}
+                            {% for key,val in mcr %}
+                                <label>{{ key }} :</label>
+                                <input type="text" name="{{ key }}" class="form-control" value="{{ val }}"><br />
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="forms">
+                        <div class="form-group col-xs-12">
+                            <select name="category" class="form-control">
+                                {% for categ in category %}
+                                    <option value="{{ categ.id }}" {% if item.id_category == categ.id %} selected {% endif %}>{{ categ.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group itemIcon ">
+                            <div class="col-xs-9">
+                                <input type="text" name="icon" class="form-control" value="{{ item.icon }}"  placeholder="{{ lang._('admin:item:inputIcon') }}">
+                            </div>
+                            <div class="col-xs-3" id="load">
+                                <img id="icon" class="load-icon" src="https://wowimg.zamimg.com/images/wow/icons/large/{{ item.icon }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <input type="text" name="name" value="{{ item.name }}"  class="form-control" placeholder="{{ lang._('admin:item:inputName') }}">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input type="text" id="parse_wowHead" class="form-control" placeholder="{{ lang._('admin:item:inputParse') }}">
+                        </div>
+                        <div id="loads"></div>
+                        <div class="form-group col-xs-12">
+                            <textarea name="tooltip" id="textareas">{{ item.tooltip|raw }}</textarea>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right">{{ lang._('admin:item:btnEdit') }}</button>
+                    </div>
+                </form>
+        {% else %}
+            <div class="box-header">{{ lang._('admin:item:noItem') }}</div>
+        {% endif %}
+            </div>
+        </section>
+    {% elseif type == 'list' %}
+        <section class="content-header">
+            <h1>{{ lang._('admin:item:headList') }}<small>{{ lang._('admin:item:list') }}</small></h1>
+            <ol class="breadcrumb">
+                <li><a href="/admin"><i class="fa fa-home"></i> Admin</a></li>
+                <li><a href="/admin/category/index"><i class="fa fa-th-list"></i> {{ lang._('admin:category:headList') }}</a></li>
+                <li class="active">{{ lang._('admin:item:headList') }}</li>
+            </ol>
+        </section>
+        <section class="content">
+             <div class="box box-primary">
+                     {% if items != false %}
+                         <div class="box-body">
+                         <table class="table table-striped table-hover">
+                             <thead>
+                             <tr>
+                                 <th class="col-xs-2">#№</th>
+                                 <th class="col-xs-2"><i class="fa fa-image"></i></th>
+                                 <th class="col-xs-2">{{ lang._('admin:item:colName') }}</th>
+                                 <th class="col-xs-2">{{ lang._('admin:item:colMacro') }}</th>
+                                 <th class="col-xs-2">{{ lang._('admin:item:colDesc') }}</th>
+                                 <th class="col-xs-2"><i class="fa fa-cogs"></i></th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             {% for item in items %}
+                                 <tr>
+                                     <td class="col-xs-2">#{{ item.id }}</td>
+                                     <td class="col-xs-2"><img src="https://wowimg.zamimg.com/images/wow/icons/large/{{ item.icon }}"></td>
+                                     <td class="col-xs-2">{{ item.item_name }}</td>
+                                     <td class="col-xs-2"><a href="#" data-toggle="popover" title="{{ item.macro_name }}" data-content="{{ item.macros }}">[macros]</a></td>
+                                     <td class="col-xs-2"><a href="#" data-toggle="popover" data-content="{{ item.tooltip|raw }}">[tooltip]</a></td>
+                                     <td class="col-xs-2">
+                         <span>
+                                <a href="/admin/item/{{ item.id }}" class="fa fa-edit"></a>
+                                <a href="#" id="remove" data-text="{{ lang._('admin:item:deleteItem') }}" data-remove="/admin/delete/item/{{ item.id }}" class="fa fa-remove"></a>
+                         </span>
+                                     </td>
+                                 </tr>
+                             {%  endfor %}
+                             </tbody>
+                         </table>
+                     </div>
+                 {% else %}
+                     <div class="box-header">{{ lang._('admin:item:noItems') }} </div>
+                 {% endif %}
+             </div>
+        </section>
+    {% elseif type == 'add' %}
+        <section class="content-header">
+            <h1>{{ lang._('admin:item:headAdd') }}</h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-home"></i> Admin</a></li>
+                <li class="active">{{ lang._('admin:item:headAdd') }}</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="box box-primary">
+                {% if macros != false and category != false %}
+                    <form method="post" id="addItem" action="/admin/item/add">
+                        <div class="box-body">
+                            <div class="form-group col-xs-12">
+                                <select name="macros" class="form-control">
+                                    <option disabled selected>{{ lang._('admin:item:selMacros') }}</option>
+                                    {% for macro in macros %}
+                                        <option value="{{ macro.id }}">{{ macro.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="macros">
+                                <div class="form-group col-xs-12"></div>
+                            </div>
+                            <div id="forms">
+                                <div class="form-group col-xs-12">
+                                    <select name="category" class="form-control">
+                                        <option disabled selected>{{ lang._('admin:item:selCategory') }}</option>
+                                        {% for categ in category %}
+                                            <option value="{{ categ.id }}">{{ categ.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group itemIcon ">
+                                    <div class="col-xs-9">
+                                        <input type="text" name="icon" class="form-control" placeholder="{{ lang._('admin:item:inputIcon') }}">
+                                    </div>
+                                    <div class="col-xs-3" id="load">
+                                        <img id="icon" class="load-icon" src="/public/assets/icons/null.png">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-xs-12">
+                                    <input type="text" name="name"  class="form-control" placeholder="{{ lang._('admin:item:inputName') }}">
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <input type="text" id="parse_wowHead" class="form-control" placeholder="{{ lang._('admin:item:inputParse') }}">
+                                </div>
+                                <div id="loads"></div>
+                                <div class="form-group col-xs-12">
+                                    <textarea name="tooltip" id="textareas"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success pull-right">{{ lang._('admin:item:btnAdd') }}</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="box-header">{{ lang._('admin:item:noAdd') }}</div>
+                {% endif %}
+            </div>
+        </section>
+
+    {% endif %}
+{% endblock %}

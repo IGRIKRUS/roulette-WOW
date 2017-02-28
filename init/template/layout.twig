@@ -1,0 +1,89 @@
+{% include "head.twig" %}
+<div class="wrapper">
+    <header class="main-header">
+        <a href="/" class="logo">
+            <span class="logo-mini"><b>R</b>UL</span>
+            <span class="logo-lg"><b>Rou</b>LETTE</span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="msg">
+                <div class="callout" style="display: none;">
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-language"></i>
+                        </a>
+                        <ul class="dropdown-menu lang">
+                            {% set langs = lang.getLangList() %}
+                            {% if langs is iterable %}
+                                {% for lg in langs %}
+                                    <li id="lang" data-lang="{{ lg }}"><a href="#"><img src="/public/assets/img/lang/{{ lg }}.png"> {{ lg }}</a></li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="header">{{ user.name }} <i id="vp" class="fa fa-money {% if vp == 0 %} text-danger {% else %} text-success {% endif %}"> {{ vp }}</i></li>
+                {% if admin == true %}
+                <li class="treeview">
+                    <a href="/admin">
+                        <i class="fa fa-cogs"></i>
+                        <span>{{ lang._('app:menu:admin') }}</span>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="treeview">
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>{{ lang._('app:menu:home') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/history">
+                        <i class="fa fa-history"></i>
+                        <span>{{ lang._('app:menu:history') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/win">
+                        <i class="fa fa-th-list"></i>
+                        <span>{{ lang._('app:menu:win') }}</span>
+                        <span class="label label-primary pull-right" id="win">{{ win }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/exit">
+                        <i class="fa fa-external-link"></i>
+                        <span>{{ lang._('app:menu:exit') }}</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        {{ block('page') }}
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> {{ version.app }}
+        </div>
+        {{ copy|raw }}
+    </footer>
+</div>
+
+{% include "footer.twig" %}

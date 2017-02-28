@@ -1,0 +1,4 @@
+.idea
+/init/storage/cache/template/*
+/init/storage/log/*
+/init/config/*

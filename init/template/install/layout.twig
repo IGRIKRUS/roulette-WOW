@@ -1,0 +1,56 @@
+{% include "install/head.twig" %}
+<div class="wrapper">
+    <header class="main-header">
+        <a href="/install" class="logo">
+            <span class="logo-mini"><b>I</b>NS</span>
+            <span class="logo-lg"><b>Ins</b>tall</span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+
+                <ul class="nav navbar-nav">
+                    <li><a href="/install">{{ lang._('install:linkHome') }}</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ lang._('language') }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu lang-list lang" role="menu">
+                            {% set langs = lang.getLangList() %}
+                            {% if langs is iterable %}
+                                {% for lg in langs %}
+                                    <li id="lang" data-lang="{{ lg }}"><a href="#"><img src="/public/assets/img/lang/{{ lg }}.png"> {{ lg }}</a></li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <li class="dropdown msg-install">
+                        <div class="callout" style="display: none">
+                            <p></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="header"><i class="fa fa-cogs"></i> Status config</li>
+            </ul>
+            <ul class="sidebar-menu" id="status"></ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        {{ block('page') }}
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version INSTALL</b> {{ version.install }}
+        </div>
+        {{ copy|raw }}
+    </footer>
+</div>
+
+{% include "install/footer.twig" %}

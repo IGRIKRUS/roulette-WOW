@@ -1,0 +1,21 @@
+<section class="content-header">
+    <h1> config admin </h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header">{{ lang._('install:steps:admin') | raw }}</div>
+        <form id="config" class="form-horizontal" method="post" action="/install/admin">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="user" class="col-sm-3 control-label">{{ lang._('formsInstall:inputAdmin') }}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="ID" class="form-control" id="user" placeholder="ID">
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary pull-right">{{ lang._('formsInstall:btnSave') }}</button>
+        </div>
+        </form>
+    </div>
+</section>

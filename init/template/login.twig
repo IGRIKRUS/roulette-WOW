@@ -1,0 +1,43 @@
+{% include "head.twig" %}
+<div class="login-box">
+    <div class="callout msg-login" style="display: none;">
+        <p></p>
+    </div>
+    <div class="login-logo">
+        <a href="#"><b>Rou</b>LETTE</a>
+    </div><!-- /.login-logo -->
+    <div class="login-box-body login">
+        <form method="post" action="/login">
+            <div class="form-group has-feedback">
+                <input type="text" name="login" class="form-control" placeholder="{{ lang._('app:login:inputLogin') }}">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password"  name="pass" class="form-control" placeholder="{{ lang._('app:login:inputPass') }}">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password"  name="captcha" class="form-control" placeholder="{{ lang._('app:login:inputCaptcha') }}">
+                <span class="glyphicon glyphicon-sunglasses form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback captcha">
+                <div class="col-xs-9">
+                    <img src="{{ app_path }}/captcha.gif">
+                </div>
+                <div class="col-xs-3">
+                    <span id="captcha" class="glyphicon glyphicon-refresh"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 login-btn">
+                    <button type="submit" class="btn bg-navy btn-block btn-flat">{{ lang._('app:login:btnLogin') }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer class="footer-login">
+        {{ copy|raw }}
+    </footer>
+</div>
+
+{% include "footer.twig" %}

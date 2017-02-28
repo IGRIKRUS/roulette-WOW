@@ -1,0 +1,85 @@
+{% include "admin/head.twig" %}
+<div class="wrapper">
+    <header class="main-header">
+        <a href="/admin" class="logo">
+            <span class="logo-mini"><b>A</b>DM</span>
+            <span class="logo-lg"><b>Adm</b>IN</span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="msg">
+                <div class="callout" style="display: none;">
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-language"></i>
+                        </a>
+                        <ul class="dropdown-menu lang">
+                            {% set langs = lang.getLangList() %}
+                            {% if langs is iterable %}
+                                {% for lg in langs %}
+                                    <li id="lang" data-lang="{{ lg }}"><a href="#"><img src="/public/assets/img/lang/{{ lg }}.png"> {{ lg }}</a></li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="header">{{ user.name }} <i class="fa fa-cogs" id="vp"> ADMIN</i></li>
+                <li class="treeview">
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span> {{ lang._('admin:menu:roulette') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/admin/logs/files">
+                        <i class="fa fa-file-code-o"></i>
+                        <span>{{ lang._('admin:menu:logs') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/admin/macros/index">
+                        <i class="fa fa-cog"></i>
+                        <span>{{ lang._('admin:menu:macros') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/admin/category/index">
+                        <i class="fa fa-th-list"></i>
+                        <span>{{ lang._('admin:menu:category') }}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/admin/item/add">
+                        <i class="fa fa-cube"></i>
+                        <span>{{ lang._('admin:menu:addItem') }}</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        {{ block('page') }}
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> {{ version.app }}
+        </div>
+        {{ copy|raw }}
+    </footer>
+</div>
+{% include "admin/footer.twig" %}

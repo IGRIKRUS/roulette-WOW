@@ -1,0 +1,18 @@
+{% extends 'install/layout.twig' %}
+
+{% block page %}
+     <section class="content-header">
+            {{ lang._('install:steps:index') }}
+       </section>
+       <section class="content">
+           <div class="box box-primary">
+               <div class="box-body">
+               <p class="text-{{ php_version[0] }}" data-type="{{ php_version[1] }}"> PHP version >= 5.3: {{ php_version[1] }}</p>
+               <p class="text-{{ config_dir[0] }}" data-type="{{ config_dir[1] }}"> ~init/config/: {{ config_dir[1] }} // chmod 777</p>
+               <p class="text-{{ cache[0] }}" data-type="{{ cache[1] }}"> ~init/storage/cache/template/: {{ cache[1] }} // chmod 777</p>
+               <p class="text-{{ log[0] }}" data-type="{{ log[1] }}"> ~init/storage/log/: {{ log[1] }} // chmod 777</p>
+               <button id="next" type="button" class="btn btn-success" data-url="/install/config/roulette">{{ lang._('formsInstall:btnNext') }}</button>
+               </div>
+           </div>
+       </section>
+{% endblock %}

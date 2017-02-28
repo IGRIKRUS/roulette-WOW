@@ -1,0 +1,33 @@
+{% extends 'layout.twig' %}
+
+{% block page %}
+    <section class="content-header">
+        <h1>{{ lang._('app:category:head') }}</h1>
+    </section>
+    <section class="content">
+        {% if category != false %}
+            <div class="row">
+                {% for categ in category %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <a href="/roulette/{{ categ.id }}" class="info-box bg-green">
+                        <span class="info-box-icon">
+                            <img class="img-category"
+                                 src="http://wow.zamimg.com/images/wow/icons/large/{{ categ.icon }}">
+                        </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">{{ categ.name }} </span>
+                                <span class="info-box-number"><i class="fa fa-money"> {{ categ.price }}</i></span>
+                                <span class="progress-description">{{ categ.description }}</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="box">
+                <div class="box-header">{{ lang._('app:category:noCategory') }}</div>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+
