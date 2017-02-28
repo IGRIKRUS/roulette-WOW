@@ -2,3 +2,6 @@
 /init/storage/cache/template/*
 /init/storage/log/*
 /init/config/*
+!/init/storage/cache/template/.gitkeep
+!/init/storage/log/.gitkeep
+!/init/config/.gitkeep
